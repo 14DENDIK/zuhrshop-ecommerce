@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block stylesheets %}<link rel="stylesheet" type="" href="{% static 'custom/css/jquery.exzoom.css' %}">{% endblock %}
+
+{% block content %}
+  <p class="text-muted mb-auto text-capitalize">{{ product.category }}</p>
+  <div class="row">
+
+    <div class="col-sm-5">
+
+      <!-- <div class="img-zoom-container">
+        <img id="myimage" src="{{ product.main_image.url }}" alt="Product Image" class="img-fluid">
+        <div id="myresult" class="img-zoom-result"></div>
+      </div> -->
+
+      <div class="exzoom" id="exzoom">
+        <!-- Images -->
+        <div class="exzoom_img_box">
+          <ul class='exzoom_img_ul'>
+            <li><img src="{{ product.main_image.url }}" alt=""></li>
+            {% for product_image in product.productimage_set.all %}
+              <li><img src="{{ product_image.image.url }}" alt=""></li>
+            {% endfor %}
+          </ul>
+        </div>
+        <!-- <a href="https://www.jqueryscript.net/tags.php?/Thumbnail/">Thumbnail</a> Nav-->
+        <div class="exzoom_nav"></div>
+        <!-- Nav Buttons -->
+        <!-- <p class="exzoom_btn">
+            <a href="javascript:void(0);" class="exzoom_prev_btn"> < </a>
+            <a href="javascript:void(0);" class="exzoom_next_btn"> > </a>
+        </p> -->
+      </div>
+
+
+    </div>
+
+    <div class="col-sm-5">
+
+      <a href="#" class="text-decoration-none text-capitalize">{% if product.category == 'phone' %} {{ product.phone.brand }}{% endif %}</a>
+
+      <h1 class="text-muted text-capitalize">{{ product.name }} {% if product.category == 'phone' %} {{ product.phone.memory }}GB {% endif %}</h1>
+
+      <p>
+        <i class="fa fa-star" style="color:orange"></i>
+        <i class="fa fa-star" style="color:orange"></i>
+        <i class="fa fa-star" style="color:orange"></i>
+        <i class="fa fa-star" style="color:orange"></i>
+        <i class="fa fa-star"></i>
+        - 4.1 average
+      </p>
+
+        <ul>
+          <li class="text-capitalize">Name: {{ product.name }}</li>
+          {% if product.category == 'phone' %}
+            <li class="text-capitalize">Brand: {{ product.phone.brand }}</li>
+            <li>Memory: {{ product.phone.memory }}</li>
+            <li>Camera: {{ product.phone.camera }}</li>
+            <li class="text-capitalize">Screen: {{ product.phone.screen }}</li>
+            <li>Screen dimension: {{ product.phone.screen_dimension }}'</li>
+            <li class="text-capitalize"><b>Condition: {{ product.phone.condition }}</b></li>
+          {% elif product.category == 'accessory' %}
+            <li>For:
+              <ul>
+                {% for phone in product.accessory.phone_set %}
+                  <li>{{ phone.name }}</li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li>Material: {{ product.accessory.material }}</li>
+          {% endif %}
+        </ul>
+      {% if product.is_on_sale %}
+        <h4 class="text-danger">{{ product.on_sale_price }}$</h4>
+        <h6>List Price: <del>{{ product.price }}$</del></h6>
+        <h6>Save: {{ saved_money }}$ ({{ off_percent }}%)</h6>
+      {% else %}
+        <h6>Price: {{ product.price }}$</h6>
+      {% endif %}
+      <hr>
+      <h2 class="text-bold">Consider Buying</h2>
+
+    </div>
+
+    <div class="col-sm-2">
+
+      <div class="card">
+        <ul class="list-group list-group-flush text-center" id="" style="position:sticky">
+          <small class="text-muted text-center">Buy</small>
+          <li class="list-group-item p-2">
+            <input type="hidden" id="Url" data-url="{% url 'cart:add-cart-item' %}" />
+            <button type="button" class="btn btn-warning btn-block p-0" onclick="addToCart({{ product.id }})">
+              <span class="fa fa-shopping-cart fa-2x mr-3 align-middle"></span><span class="align-middle">Add to cart</span>
+            </button>
+          </li>
+            <a href="#" class="list-group-link">Add to List</a>
+            <li class="list-group-item p-2">
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript" src="{% static 'custom/js/jquery.exzoom.js' %}"></script>
+  <script type="text/javascript" src="{% static 'custom/js/cart-ops.js' %}"></script>
+  <script type="text/javascript">
+
+    $(function(){
+
+      $("#exzoom").exzoom({
+        // options here
+        // thumbnail nav options
+        "navWidth": 60,
+        "navHeight": 60,
+        "navItemNum": 5,
+        "navItemMargin": 7,
+        "navBorder": 1,
+
+        // autoplay
+        "autoPlay": false,
+
+        // autoplay interval in milliseconds
+        "autoPlayTimeout": 2000
+      });
+
+    });
+  </script>
+{% endblock %}

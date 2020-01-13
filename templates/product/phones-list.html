@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="row mt-3">
+
+  <div class="col-sm-2">
+    <div class="btn-group-vertical btn-block">
+      <a href="{% url 'product:phones-list' 'all' cond %}" class="btn btn-light btn-sm {% if current_brand == 'all' %}active{% endif %}">All</a>
+      {% for brand in brands %}
+        <a href="{% url 'product:phones-list' brand.name cond %}" class="btn btn-light btn-sm text-capitalize {% if current_brand == brand.name %}active{% endif %}">{{ brand.name }}</a>
+      {% endfor %}
+    </div>
+
+    <div class="btn-group-vertical btn-block">
+      <a href="{% url 'product:phones-list' current_brand 'all' %}" class="btn btn-light btn-sm {% if cond == 'all' %}active{% endif %}">All</a>
+      <a href="{% url 'product:phones-list' current_brand 'new' %}" class="btn btn-light btn-sm {% if cond == 'new' %}active{% endif %}">New</a>
+      <a href="{% url 'product:phones-list' current_brand 'used' %}" class="btn btn-light btn-sm {% if cond == 'used' %}active{% endif %}">Used</a>
+    </div>
+  </div>
+
+  <div class="col-sm-8">
+
+      {% if products %}
+        {% for product in products %}
+            {% if forloop.counter0|divisibleby:3 %}
+              {% if forloop.first %}
+                <div class="card-group">
+              {% else %}
+                </div><div class="card-group">
+              {% endif %}
+            {% endif %}
+              {% if product.phone.brand.name == current_brand %}
+                {% if product.phone.condition == cond %}
+                  {% include 'include/_product_card.html' %}
+                {% elif cond == 'all' %}
+                  {% include 'include/_product_card.html' %}
+                {% endif %}
+              {% elif current_brand == 'all' %}
+                {% if product.phone.condition == cond %}
+                  {% include 'include/_product_card.html' %}
+                {% elif cond == 'all' %}
+                  {% include 'include/_product_card.html' %}
+                {% endif %}
+              {% endif %}
+            {% if forloop.last %}
+              </div>
+            {% endif %}
+        {% endfor %}
+      {% else %}
+        <h1 class="display-1">Coming soon...</h1>
+      {% endif %}
+
+  </div>
+
+  <div class="col-sm-2">
+    <div class="card position-fixed">
+      <div class="card-header">
+        Ads
+      </div>
+      <ul class="list-group list-group-flush" style="position:sticky">
+        <li class="list-group-item">New Phone</li>
+        <li class="list-group-item">Trending Accessory</li>
+        <li class="list-group-item">Watch by Apple</li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

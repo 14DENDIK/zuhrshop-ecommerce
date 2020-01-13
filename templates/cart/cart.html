@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-9">
+    <table class="table table-borderless" id="table">
+      <thead>
+        <tr class="border-bottom border-secondary">
+          <th scope="col">Product</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      {% if cart.total_items_num != 0 %}
+      <tbody>
+        {% for cart_item in cart.cartitem_set.all %}
+        <tr class="border-bottom border-secondary" id="cart_item_row{{ cart_item.id }}">
+          <td class="align-middle"><img class="rounded" src="{{ cart_item.product.main_image.url }}" alt="" width="75" height="75">&nbsp;{{ cart_item.product.name }}</td>
+          <td class="align-middle">
+            <div class="btn-group btn-group-sm">
+              <button type="button" name="button" class="btn btn-dark" onclick="updateQuantity({{ cart_item.id }}, 0)"><i class="fa fa-minus"></i></button>
+              <input type="button" name="button" class="btn btn-light" id="quantity-{{ cart_item.id }}" value="{{ cart_item.get_quantity }}"></input>
+              <button type="button" name="button" class="btn btn-dark" onclick="updateQuantity({{ cart_item.id }}, 1)"><i class="fa fa-plus"></i></button>
+            </div>
+          </td>
+          <td class="align-middle">{{ cart_item.product.price }}</td>
+          <td class="align-middle">
+            <!-- <a href="#" class="btn btn-info"><i class="fa fa-edit"></i></a> -->
+            <button type="button" class="btn btn-danger" onclick="deleteCartItem({{ cart_item.id }})"><i class="fa fa-trash"></i></button>
+          </td>
+        </tr>
+        {% endfor %}
+        <tr class="border-bottom border-secondary bg-dark text-light" id="total-price-row">
+          <td colspan="4" class="text-right"><h5 class="m-0">Total: <span id="total">{{ cart.total_items_price }}</span></h5></td>
+        </tr>
+      </tbody>
+      {% endif %}
+    </table>
+    {% if cart.total_items_num == 0 %}
+    <h3 class="display-4 text-center">Your cart is empty.</h3>
+    {% endif %}
+  </div>
+
+  <div class="col-sm-3">
+    <div class="card bg-dark text-light">
+      <div class="card-header">
+        Card Details
+      </div>
+      <div class="card-body">
+        <fieldset class="border pl-4 mb-4">
+          <small class="text-muted">Name on card</small>
+          <p class="m-0">Unknown</p>
+        </fieldset>
+        <fieldset class="border pl-4 mb-4">
+          <small class="text-muted">Card Number</small>
+          <p class="m-0">Unknown</p>
+        </fieldset>
+        <fieldset class="border pl-4 mb-4">
+          <small class="text-muted">Expiration Date</small>
+          <p class="m-0">Unknown</p>
+        </fieldset>
+        <button type="button" class="btn btn-warning btn-block" name="button">Proceed to Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script type="text/javascript" src="{% static 'custom/js/cart-ops.js' %}">
+
+</script>
+{% endblock %}

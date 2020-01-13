@@ -1,0 +1,10 @@
+.login-form {
+  border-radius: 15px;
+  /* border-color: #8e8d8a; */
+  border: 1px solid #8e8d8a;
+}
+
+.fieldset {
+  border-top: 1px solid #8e8d8a;
+  border-bottom: 1px solid #8e8d8a;
+}

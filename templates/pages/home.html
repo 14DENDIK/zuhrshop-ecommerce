@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+
+<div class="row mt-3">
+
+  <div class="col-sm-2">
+
+  </div>
+
+  <div class="col-sm-8">
+
+      {% if products %}
+        {% for product in products %}
+          {% if forloop.counter0|divisibleby:3 %}
+            {% if forloop.first %}
+              <div class="card-group">
+            {% else %}
+              </div><div class="card-group">
+            {% endif %}
+          {% endif %}
+            {% include 'include/_product_card.html' %}
+            {% if forloop.last %}
+              </div>
+            {% endif %}
+        {% endfor %}
+      {% else %}
+        <h1 class="display-1">Coming soon...</h1>
+      {% endif %}
+
+  </div>
+
+  <div class="col-sm-2">
+    <div class="card position-fixed">
+      <div class="card-header">
+        Ads
+      </div>
+      <ul class="list-group list-group-flush" style="position:sticky">
+        <li class="list-group-item">New Phone</li>
+        <li class="list-group-item">Trending Accessory</li>
+        <li class="list-group-item">Watch by Apple</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- <h1>{% trans "Hello How are doing" %}</h1>
+{% get_current_language as CURRENT_LANG %}
+<h1>{{ CURRENT_LANG }}</h1>
+<h1>{{ text }}</h1>
+<form class="" action="{% url 'set_language' %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ request.get_full_path|slice:'3:' }}">
+  <select name="language">
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    {% for language in languages %}
+      <option value="{{ language.code }}" {% if language.code == CURRENT_LANG %} selected {% endif %}>
+        {{ language.name_local }} ({{ language.code }})
+      </option>
+    {% endfor %}
+  </select>
+  <input type="submit" value="Go">
+</form>
+
+<button type="button" class="btn btn-primary" name="button">Hey</button>
+
+<form action="{% url 'set_language' %}" method="post">
+  {% csrf_token %}
+  <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+  <input name="language" type="hidden" value="ru" />
+  <input type="submit" value="RU" />
+</form>
+
+<form action="{% url 'set_language' %}" method="post">
+  {% csrf_token %}
+  <input name="next" type="hidden" value="{{ request.get_full_path|slice:'3:' }}" />
+  <input name="language" type="hidden" value="en" />
+  <button type="submit" class="btn btn-outline-success">EN</button>
+</form> -->
+{% endblock %}

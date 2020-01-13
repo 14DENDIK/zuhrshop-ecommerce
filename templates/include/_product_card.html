@@ -1,0 +1,16 @@
+<div class="card">
+  <img src="{{ product.main_image.url }}" class="card-img-top" alt="">
+  <div class="card-header">
+    <h5 class="card-title" {% if product.is_on_sale %}style="text-decoration:line-through"{% endif %}>Price: {{ product.price }}</h5>
+    {% if product.is_on_sale %}
+      <h6 class="card-text">List: {{ product.on_sale_price }}</h6>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <p class="card-text text-capitalize">{{ product.name }}</p>
+    <a href="{% url 'product:phones-list' 'all' 'all' %}" class="card-link text-capitalize">{{ product.category }}</a>
+  </div>
+  <div class="card-footer">
+    <a href="{% url 'product:product-details' product.id %}" class="btn btn-warning btn-block">See Details</a>
+  </div>
+</div>
