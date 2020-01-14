@@ -7,7 +7,7 @@
     <div class="col-sm-3">
       <form class="form-signin pr-2 pl-2 login-form" method="post">
         {% csrf_token %}
-        <legend>Please sign in</legend>
+        <legend>Please sign up</legend>
         <fieldset class="fieldset mb-2">
           {% for field in form %}
             <div class="form-group mt-2">
@@ -17,10 +17,10 @@
           {% endfor %}
         </fieldset>
         <div class="form-group">
-          <button type="submit" class="btn btn-block btn-primary">Login</button>
+          <button type="submit" class="btn btn-block btn-primary">Sign Up</button>
           <a href="{% url 'pages:home-page' %}" class="btn btn-block btn-outline-secondary">Cancel</a>
         </div>
-        <p><small class="text-muted">Don't have account? <a href="{% url 'users:user-register' %}">Sign Up</a></small></p>
+        <p><small class="text-muted">Allready have an account? <a href="{% url 'users:user-login' %}">Sign In</a></small></p>
       </form>
       <p class="mb-3 text-muted text-center">&copy; 2017-2019</p>
       <!-- <form class="form-signin">

@@ -8,6 +8,26 @@ from .models import CustomUser
 from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomUserLoginForm
 
 
+class CustomUserRegisterView(View):
+
+    def get(self, request):
+        form = CustomUserCreationForm()
+        context = {
+            'form': form
+        }
+        return render(request, 'users/register.html', context)
+
+    def post(self, request):
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password1']
+            form.save()
+            user = authenticate(username=email, password=password)
+            login(request, user)
+            return redirect('pages:home-page')
+
+
 class CustomUserLoginView(View):
 
     def get(self, request):

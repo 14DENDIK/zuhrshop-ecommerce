@@ -4,10 +4,25 @@ from .models import CustomUser
 
 
 class CustomUserCreationForm(UserCreationForm):
-
+    email = forms.EmailField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Email address',
+        'type': 'email',
+        'autofocus': True
+    }))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Password',
+        'type': 'password'
+    }))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Reapeat password',
+        'type': 'password'
+    }))
     class Meta(UserCreationForm):
         model = CustomUser
-        fields = ['email',]
+        fields = ['email', 'password1', 'password2',]
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -23,7 +38,7 @@ class CustomUserLoginForm(forms.Form):
         'placeholder': 'Email address',
         'type': 'email',
         'autofocus': True
-    }));
+    }))
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'class': 'form-control',
         'placeholder': 'Password',

@@ -7,7 +7,7 @@
     {% endif %}
   </div>
   <div class="card-body">
-    <p class="card-text text-capitalize">{{ product.name }}</p>
+    <p class="card-text text-capitalize">{{ product.name }} - {% if product.category == 'phone' %}{{ product.phone.memory }}GB{% endif %}</p>
     <a href="{% url 'product:phones-list' 'all' 'all' %}" class="card-link text-capitalize">{{ product.category }}</a>
   </div>
   <div class="card-footer">
