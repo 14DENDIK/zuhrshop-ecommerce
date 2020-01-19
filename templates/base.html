@@ -12,14 +12,15 @@
     <title></title>
   </head>
   <body>
-    {% include 'include/_navbar.html' with brands=brands %}
+    {% block navbar %}{% include 'include/_navbar.html' with brands=brands %}{% endblock %}
     <div class="container-fluid">
       {% include 'include/_message.html' %}
       {% block content %}{% endblock %}
     </div>
+    {% block admin-content %}{% endblock %}
 
 
-    {% include 'include/_footer.html' %}
+    {% block footer %}{% include 'include/_footer.html' %}{% endblock %}
 
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/popper.js' %}"></script>

@@ -6,4 +6,4 @@ class MainAdminView(LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required = 'users.is_staff'
 
     def get(self, request):
-        return render(request, 'cart/cart.html', {})
+        return render(request, 'administrations/admin-main.html', {})
