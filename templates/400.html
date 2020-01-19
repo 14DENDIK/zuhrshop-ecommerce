@@ -1,0 +1,19 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>404 Error</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fa/css/font-awesome.css' %}">
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1 class="display-2">Ooops!</h1>
+      <h2 class="dispay-3">400 Not Found</h2>
+      <p>Sorry an error has occured. Requested page not found!</p>
+      <a href="{% url 'pages:home-page' %}" class="btn btn-info"><i class="fa fa-home fa-2x"></i>Take Me Home</a>
+    </div>
+  </body>
+</html>

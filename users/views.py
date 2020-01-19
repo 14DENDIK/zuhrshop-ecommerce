@@ -32,6 +32,7 @@ class CustomUserLoginView(View):
 
     def get(self, request):
         form = CustomUserLoginForm()
+        # next_page = request.GET.get('next', None)
         context = {
             'form': form
         }
@@ -46,7 +47,7 @@ class CustomUserLoginView(View):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    return redirect('pages:home-page')
+                    return redirect(self.request.GET.get('next', 'pages:home-page'))
                 else:
                     messages.error(request, 'Your account is disabled.')
                     return redirect('pages:home-page')

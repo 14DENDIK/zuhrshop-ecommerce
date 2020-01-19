@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views import View
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 from .models import Cart, CartItem
 from product.models import Product
@@ -10,7 +11,7 @@ from product.models import Product
 class CartView(View):
     def get(self, request):
         # cart_id = request.session.get('cart_id', None)
-        cart = Cart.objects.get(id=request.session.get('cart_id', None))
+        # cart = Cart.objects.get(id=request.session.get('cart_id', None))
         # print("Num of Cart Items:")
         # print(cart.total_items_num())
         return render(request, 'cart/cart.html', {})
@@ -57,7 +58,7 @@ class AddCartItemView(View):
         # return JsonResponse(data)
 
 
-class DeleteCartItemView(View):
+class DeleteCartItemView(UserPassesTestMixin, View):
     def get(self, request):
         # Gets cart items id through id
         cart_item_id = request.GET.get('cart_item_id', None)
@@ -84,13 +85,21 @@ class DeleteCartItemView(View):
                 'total_items': total_items
             }
         else:
-            data = {
-                'is_deleted': False
-            }
+            raise Http404("Page does not exists.")
         return JsonResponse(data)
 
+    def test_func(self):
+        cart_item_id = self.request.GET.get('cart_item_id', None)
+        if cart_item_id is not None:
+            cart_item_obj = CartItem.objects.get(id=cart_item_id)
+            cart_obj = cart_item_obj.cart
+            if self.request.user == cart_obj.user:
+                return True
+            else:
+                return False
 
-class UpdateCartItemQuantityView(View):
+
+class UpdateCartItemQuantityView(UserPassesTestMixin, View):
     def get(self, request):
         cart_item_id = request.GET.get('cart_item_id', None)
         operation = request.GET.get('operation', None)
@@ -122,6 +131,16 @@ class UpdateCartItemQuantityView(View):
         else:
             raise Exception("Empty Cart Item Was Send")
         return JsonResponse(data)
+
+    def test_func(self):
+        cart_item_id = self.request.GET.get('cart_item_id', None)
+        if cart_item_id is not None:
+            cart_item_obj = CartItem.objects.get(id=cart_item_id)
+            cart_obj = cart_item_obj.cart
+            if self.request.user == cart_obj.user:
+                return True
+            else:
+                return False
 
 # class SongLikeView(LoginRequiredMixin, View):
 #

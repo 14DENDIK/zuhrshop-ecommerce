@@ -26,7 +26,7 @@ SECRET_KEY = 'zc7ynmf&938b&0_!7r!hs6)v2f-7dndpm^dh1+&do()n2(4ajd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -44,9 +44,24 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
     'product.apps.ProductConfig',
     'users.apps.UsersConfig',
+    'payments',
+    'click',
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+PAYMENT_HOST = 'localhost:8000'
+PAYMENT_USES_SSL = False
+PAYMENT_MODEL = 'cards.Payment'
+
+PAYMENT_VARIANTS = {
+    'click': ('click.ClickProvider', {
+        'merchant_id': 1111,
+        'merchant_service_id': 11111,
+        'merchant_user_id': 11111,
+        'secret_key': 'AAAAAA'
+    }),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -147,3 +162,5 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+LOGIN_URL = '/user/login/'
