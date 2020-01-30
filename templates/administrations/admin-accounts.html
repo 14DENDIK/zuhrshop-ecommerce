@@ -1,0 +1,58 @@
+{% extends 'administrations/admin-base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row tm-content-row">
+  <div class="col-12 tm-block-col">
+      <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+          <h2 class="tm-block-title">Employees List</h2>
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th scope="col">ID NO.</th>
+                      <th scope="col">NAME</th>
+                      <th scope="col">EMAIL</th>
+                      <th scope="col">PHONE NO.</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for employee in employees %}
+                    <tr>
+                        <th scope="row"><b>{{ employee.id }}</b></th>
+                        <td><b>{{ employee.name }}</b></td>
+                        <td><b>{{ employee.email }}</b></td>
+                        <td><b>{{ employee.num }}</b></td>
+                    </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+
+  <div class="col-12 tm-block-col">
+      <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
+          <h2 class="tm-block-title">Clients List</h2>
+          <table class="table">
+              <thead>
+                  <tr>
+                      <th scope="col">ID NO.</th>
+                      <th scope="col">NAME</th>
+                      <th scope="col">EMAIL</th>
+                      <th scope="col">PHONE NO.</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for client in clients %}
+                    <tr>
+                        <th scope="row"><b>{{ client.id }}</b></th>
+                        <td><b>{{ client.name }}</b></td>
+                        <td><b>{{ client.email }}</b></td>
+                        <td><b>{{ client.num }}</b></td>
+                    </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+{% endblock %}

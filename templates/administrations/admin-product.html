@@ -1,0 +1,62 @@
+{% extends 'administrations/admin-base.html' %}
+{% load static i18n %}
+
+{% block content %}
+<h2>Products</h2>
+<p>Filter:
+  <a href="#" class="btn btn-info" onclick="filterCat(1)">Phones</a>
+  <a href="#" class="btn btn-info" onclick="filterCat(2)">Accessory</a>
+  <a href="#" class="btn btn-info" onclick="filterCat(0)">All</a>
+</p>
+<!-- <input type="radio" name="" value="Phone">
+<input type="radio" name="" value="Accessory"> -->
+
+<div class="" style="height:400px;overflow:auto;">
+  <table class="table" id="productTable">
+    <thead class="thead-info">
+      <tr>
+        <th scope="col" class="th" onclick="sortTableInt(-1)">#</th>
+        <th scope="col" class="th" onclick="sortTableStr(0)">Name</th>
+        <th scope="col" class="th" onclick="sortTableInt(1)">Price</th>
+        <th scope="col">On sale</th>
+        <th scope="col" class="th" onclick="sortTableStr(3)">Category</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+        <tr>
+          <th scope="row" class="numer">{{ forloop.counter }}</th>
+          <td class="text-capitalize">
+            {% if product.category == 'phone' %}
+              {{ product.phone.brand }} - {{ product.name }}
+            {% else %}
+              {{ product.accessory.phone.name }} - {{ product.name }}
+            {% endif %}
+          </td>
+          <td>
+            {% if is_on_sale %}
+              {{ product.on_sale_price }}
+            {% else %}
+              {{ product.price }}
+            {% endif %}
+          </td>
+          <td>
+            {% if product.is_on_sale %}
+              <span class="badge badge-pill badge-success"><i class="fas fa-check"></i></span>
+            {% else %}
+              <span class="badge badge-pill badge-danger"><i class="fas fa-times"></i></span>
+            {% endif %}
+          </td>
+          <td class="text-capitalize">{{ product.category }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<form class="form-signin pr-2 pl-2 login-form" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  {{ formset.as_table }}
+</form>
+{% endblock %}

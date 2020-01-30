@@ -16,7 +16,6 @@ class HomeView(View):
         # if request.user.is_authenticated():
         #     cart = Cart.objects.get(user=request.user)
         # print(request.session.get('first_name', 'Unknown'))
-        
         products = Product.objects.all()
         context = {
             'products': products

@@ -1,0 +1,63 @@
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h3>ZuhrShop</h3>
+    <strong>ZS</strong>
+  </div>
+
+  <ul class="list-unstyled components">
+    <!-- <li class="active">
+      <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+        <i class="fas fa-home"></i>
+        Home
+      </a>
+      <ul class="collapse list-unstyled" id="homeSubmenu">
+        <li><a href="#">Home 1</a></li>
+        <li><a href="#">Home 2</a></li>
+        <li><a href="#">Home 3</a></li>
+        <li><a href="#">Home 4</a></li>
+      </ul>
+    </li> -->
+    <li class="{% if url_name == 'dashboard' %}active{% endif %}">
+      <a href="{% url 'administrations:admin-main' %}"><i class="fas fa-tachometer-alt"></i>
+        Dashboard
+      </a>
+    </li>
+    <li class="{% if url_name == 'products' %}active{% endif %}">
+      <a href="{% url 'administrations:admin-products' %}">
+        &nbsp;<i class="fas fa-mobile"></i>
+        Products
+      </a>
+    </li>
+    <li class="{% if url_name == 'carts' %}active{% endif %}">
+      <a href="#"><i class="fas fa-shopping-cart"></i>
+        Carts
+      </a>
+    </li>
+    <li class="{% if url_name == 'clients' %}active{% endif %}">
+      <a href="#"><i class="fas fa-users"></i>
+        Clients
+      </a>
+    </li>
+    <li class="{% if url_name == 'brands' %}active{% endif %}">
+      <a href="#"><i class="far fa-copyright"></i>
+        Brands
+      </a>
+    </li>
+    <li class="{% if url_name == 'staff' %}active{% endif %}">
+      <a href="#"><i class="fas fa-user-tie"></i>
+        Staff
+      </a>
+    </li>
+    <li>
+      <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+        <i class="fas fa-copy"></i>
+        Pages
+      </a>
+      <ul class="collapse list-unstyled" id="pageSubmenu">
+        <li><a href="#">Page 1</a></li>
+        <li><a href="#">Page 2</a></li>
+        <li><a href="#">Page 3</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,40 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fa/css/fontawesome.min.css' %}">
+    <!-- <link rel="stylesheet" type="text/css" href="{% static 'custom/css/jquery.mCustomScrollbar.min.css' %}"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'custom/css/admin.css' %}">
+    {% block stylesheets %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+
+    <div class="wrapper">
+      {% include 'include/_admin_navbar.html' %}
+      <div id="content">
+        {% include 'include/_admin_top_navbar.html' %}
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+
+    {% block footer %}
+    {% endblock %}
+
+
+    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popper.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'custom/js/moment.min.js' %}"></script>
+    <script src="{% static 'custom/js/Chart.min.js' %}"></script>
+    <!-- <script src="{% static 'custom/js/jquery.mCustomScrollbar.concat.min.js' %}"></script> -->
+    <script src="{% static 'custom/js/admin.js' %}"></script>
+    {% block scripts %}
+    {% endblock %}
+  </body>
+</html>

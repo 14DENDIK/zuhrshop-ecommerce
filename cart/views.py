@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse, Http404
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 from .models import Cart, CartItem
@@ -90,13 +90,14 @@ class DeleteCartItemView(UserPassesTestMixin, View):
 
     def test_func(self):
         cart_item_id = self.request.GET.get('cart_item_id', None)
+        print(self.request.session.get('cart_id', None))
         if cart_item_id is not None:
             cart_item_obj = CartItem.objects.get(id=cart_item_id)
             cart_obj = cart_item_obj.cart
-            if self.request.user == cart_obj.user:
+            if self.request.session['cart_id'] == cart_obj.id:
                 return True
             else:
-                return False
+                raise(PermissionDenied("Have no right to delete"))
 
 
 class UpdateCartItemQuantityView(UserPassesTestMixin, View):
@@ -137,10 +138,10 @@ class UpdateCartItemQuantityView(UserPassesTestMixin, View):
         if cart_item_id is not None:
             cart_item_obj = CartItem.objects.get(id=cart_item_id)
             cart_obj = cart_item_obj.cart
-            if self.request.user == cart_obj.user:
+            if self.request.session['cart_id'] == cart_obj.id:
                 return True
             else:
-                return False
+                raise(PermissionDenied("To update another item"))
 
 # class SongLikeView(LoginRequiredMixin, View):
 #

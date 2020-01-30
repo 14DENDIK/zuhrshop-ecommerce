@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'fa/css/font-awesome.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'custom/css/_footer.css' %}">
-    <link rel="stylesheet" type="" href="{% static 'custom/css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'custom/css/main.css' %}">
     {% block stylesheets %}{% endblock %}
     <title></title>
   </head>
@@ -25,6 +25,8 @@
     <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/popper.js' %}"></script>
     <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="{% static 'custom/js/moment.min.js' %}"></script>
+    <script src="{% static 'custom/js/Chart.min.js' %}"></script>
     {% block scripts %}{% endblock %}
   </body>
 </html>
