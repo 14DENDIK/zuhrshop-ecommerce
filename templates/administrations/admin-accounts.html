@@ -2,57 +2,44 @@
 {% load static %}
 
 {% block content %}
-<div class="row tm-content-row">
-  <div class="col-12 tm-block-col">
-      <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-          <h2 class="tm-block-title">Employees List</h2>
-          <table class="table">
-              <thead>
-                  <tr>
-                      <th scope="col">ID NO.</th>
-                      <th scope="col">NAME</th>
-                      <th scope="col">EMAIL</th>
-                      <th scope="col">PHONE NO.</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for employee in employees %}
-                    <tr>
-                        <th scope="row"><b>{{ employee.id }}</b></th>
-                        <td><b>{{ employee.name }}</b></td>
-                        <td><b>{{ employee.email }}</b></td>
-                        <td><b>{{ employee.num }}</b></td>
-                    </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-      </div>
-  </div>
-
-  <div class="col-12 tm-block-col">
-      <div class="tm-bg-primary-dark tm-block tm-block-taller tm-block-scroll">
-          <h2 class="tm-block-title">Clients List</h2>
-          <table class="table">
-              <thead>
-                  <tr>
-                      <th scope="col">ID NO.</th>
-                      <th scope="col">NAME</th>
-                      <th scope="col">EMAIL</th>
-                      <th scope="col">PHONE NO.</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  {% for client in clients %}
-                    <tr>
-                        <th scope="row"><b>{{ client.id }}</b></th>
-                        <td><b>{{ client.name }}</b></td>
-                        <td><b>{{ client.email }}</b></td>
-                        <td><b>{{ client.num }}</b></td>
-                    </tr>
-                  {% endfor %}
-              </tbody>
-          </table>
-      </div>
-  </div>
+<h2 class="tm-block-title text-capitalize">{{ url_name }} List</h2>
+<div class="" style="height:400px;overflow:auto;">
+  <table class="table">
+      <thead>
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">ID NO.</th>
+              <th scope="col">NAME</th>
+              <th scope="col">EMAIL</th>
+              <th scope="col">PHONE NO.</th>
+              <th scope="col">ACTIVE ST.</th>
+              <th scope="col">ACTION</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for account in accounts %}
+            <tr id="account-{{ account.id }}">
+                <th scope="row"><b>{{ forloop.counter }}</b></th>
+                <td><b>{{ account.id }}</b></td>
+                <td>{{ account.name }}</td>
+                <td>{{ account.email }}</td>
+                <td><b>{{ account.num }}</b></td>
+                <td>
+                  {% if account.is_active %}
+                    <span class="badge badge-pill badge-success" id="badgeColor-{{ account.id }}"><i id="activeStatus-{{ account.id }}" class="fas fa-check"></i></span>
+                  {% else %}
+                    <span class="badge badge-pill badge-danger" id="badgeColor-{{ account.id }}"><i id="activeStatus-{{ account.id }}" class="fas fa-times"></i></span>
+                  {% endif %}
+                </td>
+                <td>
+                  <input type="hidden" id="Url" data-url="{% url 'administrations:admin-delete-account' %}" />
+                  <button type="button" class="btn btn-outline-danger" onclick="deleteAccount({{ account.id }})">
+                    <i class="fas fa-user"></i>
+                  </button>
+                </td>
+            </tr>
+          {% endfor %}
+      </tbody>
+  </table>
 </div>
 {% endblock %}

@@ -29,22 +29,22 @@
       </a>
     </li>
     <li class="{% if url_name == 'carts' %}active{% endif %}">
-      <a href="#"><i class="fas fa-shopping-cart"></i>
+      <a href="{% url 'administrations:admin-carts' %}"><i class="fas fa-shopping-cart"></i>
         Carts
       </a>
     </li>
     <li class="{% if url_name == 'clients' %}active{% endif %}">
-      <a href="#"><i class="fas fa-users"></i>
+      <a href="{% url 'administrations:admin-accounts' 'clients' %}"><i class="fas fa-users"></i>
         Clients
       </a>
     </li>
     <li class="{% if url_name == 'brands' %}active{% endif %}">
-      <a href="#"><i class="far fa-copyright"></i>
+      <a href="{% url 'administrations:admin-brands' %}"><i class="far fa-copyright"></i>
         Brands
       </a>
     </li>
     <li class="{% if url_name == 'staff' %}active{% endif %}">
-      <a href="#"><i class="fas fa-user-tie"></i>
+      <a href="{% url 'administrations:admin-accounts' 'staff' %}"><i class="fas fa-user-tie"></i>
         Staff
       </a>
     </li>

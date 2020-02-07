@@ -1,0 +1,33 @@
+{% extends 'administrations/admin-base.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="tm-block-title text-capitalize">{{ url_name }} List - <i class="fas fa-shopping-cart"></i></h2>
+<div class="" style="height:400px;overflow:auto;">
+  <table class="table">
+      <thead>
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">ID NO.</th>
+              <th scope="col">USER</th>
+              <th scope="col">ACTION</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for cart in carts %}
+            <tr id="cart-{{ cart.id }}">
+                <th scope="row"><b>{{ forloop.counter }}</b></th>
+                <td><b>{{ cart.id }}</b></td>
+                <td>{{ cart.user }}</td>
+                <td>
+                  <input type="hidden" id="Url" data-url="{% url 'administrations:admin-delete-cart' %}" />
+                  <button type="button" class="btn btn-outline-danger" onclick="deleteCart({{ cart.id }})">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+            </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endblock %}

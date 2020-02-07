@@ -56,8 +56,8 @@
           <li class="text-capitalize">Name: {{ product.name }}</li>
           {% if product.category == 'phone' %}
             <li class="text-capitalize">Brand: {{ product.phone.brand }}</li>
-            <li>Memory: {{ product.phone.memory }}</li>
-            <li>Camera: {{ product.phone.camera }}</li>
+            <li>Memory: {{ product.phone.memory }} GB</li>
+            <li>Camera: {{ product.phone.camera }} Mega-pixels</li>
             <li class="text-capitalize">Screen: {{ product.phone.screen }}</li>
             <li>Screen dimension: {{ product.phone.screen_dimension }}'</li>
             <li class="text-capitalize"><b>Condition: {{ product.phone.condition }}</b></li>

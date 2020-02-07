@@ -1,0 +1,70 @@
+<div class="form-row">
+  <div class="form-group col-sm-6">
+    <label for="{{ form.name.id_for_label }}">{{ form.name.label }}:</label>
+    {{ form.name }}
+  </div>
+  <div class="form-group col-sm-3">
+    <label for="{{ form.price.id_for_label }}">{{ form.price.label }}:</label>
+    {{ form.price }}
+  </div>
+  <div class="form-group col-sm-3">
+    <div class="form-check mb-2">
+      {{ form.is_on_sale }}
+      <label for="{{ form.is_on_sale.id_for_label }}" class="form-check-label">{{ form.is_on_sale.label }}:</label>
+    </div>
+    {{ form.on_sale_price }}
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-group col-sm-3">
+    <label for="{{ form.ram.id_for_label }}">{{ form.ram.label }}:</label>
+    {{ form.ram }}
+  </div>
+  <div class="form-group col-sm-3">
+    <label for="{{ form.memory.id_for_label }}">{{ form.memory.label }}:</label>
+    {{ form.memory }}
+  </div>
+  <div class="form-group col-sm-3">
+    <label for="{{ form.camera.id_for_label }}">{{ form.camera.label }}:</label>
+    {{ form.camera }}
+  </div>
+  <div class="form-group col-sm-3">
+    <label for="{{ form.screen_dimension.id_for_label }}">{{ form.screen_dimension.label }}:</label>
+    {{ form.screen_dimension }}
+  </div>
+</div>
+
+<div class="form-row">
+  <div class="form-group col-sm-3">
+    <label for="{{ form.screen.id_for_label }}">{{ form.screen.label }}:</label>
+    {{ form.screen }}
+  </div>
+  <div class="form-group col-sm-3">
+    <label for="{{ form.brand.id_for_label }}">{{ form.brand.label }}:</label>
+    {{ form.brand }}
+  </div>
+  <div class="form-group col-sm-3">
+    <label for="{{ form.condition.id_for_label }}">{{ form.condition.label }}:</label>
+    {{ form.condition }}
+  </div>
+  <div class="form-group col-sm-3">
+    <label for="{{ form.main_image.id_for_label }}">{{ form.main_image.label }}:</label>
+    {{ form.main_image }}
+  </div>
+</div>
+
+<div class="form-row">
+  {{ formset.management_form }}
+  {% for f in formset %}
+    <div class="form-group col-sm-3">
+      <label for="{{ f.image.id_for_label }}">{{ f.image.label }}:</label>
+      {{ f.image }}
+    </div>
+  {% endfor %}
+</div>
+
+<div class="form-check mb-2">
+  {{ form.is_available }}
+  <label for="{{ form.is_available.id_for_label }}" class="form-check-label">{{ form.is_available.label }}:</label>
+</div>

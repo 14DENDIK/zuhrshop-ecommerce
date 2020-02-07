@@ -8,9 +8,13 @@
   <a href="#" class="btn btn-info" onclick="filterCat(2)">Accessory</a>
   <a href="#" class="btn btn-info" onclick="filterCat(0)">All</a>
 </p>
+
+<p class="text-right">
+  <a href="{% url 'administrations:admin-add-product' 'phone' %}"class="mr-2"><i class="fas fa-plus" style="color:green"></i>Phone</a>
+  <a href="{% url 'administrations:admin-add-product' 'accessory' %}"><i class="fas fa-plus" style="color:green"></i>Accessory</a>
+</p>
 <!-- <input type="radio" name="" value="Phone">
 <input type="radio" name="" value="Accessory"> -->
-
 <div class="" style="height:400px;overflow:auto;">
   <table class="table" id="productTable">
     <thead class="thead-info">
@@ -20,17 +24,18 @@
         <th scope="col" class="th" onclick="sortTableInt(1)">Price</th>
         <th scope="col">On sale</th>
         <th scope="col" class="th" onclick="sortTableStr(3)">Category</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
       {% for product in products %}
-        <tr>
+        <tr id="product-{{ product.id }}">
           <th scope="row" class="numer">{{ forloop.counter }}</th>
           <td class="text-capitalize">
             {% if product.category == 'phone' %}
               {{ product.phone.brand }} - {{ product.name }}
             {% else %}
-              {{ product.accessory.phone.name }} - {{ product.name }}
+              {{ product.accessory.material }} - {{ product.name }}
             {% endif %}
           </td>
           <td>
@@ -48,15 +53,18 @@
             {% endif %}
           </td>
           <td class="text-capitalize">{{ product.category }}</td>
+          <td>
+            <input type="hidden" id="Url" data-url="{% url 'administrations:admin-delete-product' %}" />
+            <button type="button" class="btn btn-outline-danger" onclick="deleteProduct({{ product.id }})">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
 
-<form class="form-signin pr-2 pl-2 login-form" method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {{ formset.as_table }}
-</form>
+
+
 {% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'administrations/admin-base.html' %}
+{% load static %}
+
+{% block content %}
+<h2 class="tm-block-title text-capitalize">Brands List</h2>
+<form class="form-inline mb-3" method="post">
+  {% csrf_token %}
+  {{ form.name }}
+  <button type="submit" id="createBrand" class="btn btn-success ml-2">Create</button>
+</form>
+<div class="" style="height:400px;overflow:auto;">
+  <table class="table">
+      <thead>
+          <tr>
+              <th scope="col">#</th>
+              <th scope="col">ID NO.</th>
+              <th scope="col">NAME</th>
+              <th scope="col">ACTION</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for brand in brands %}
+            <tr id="brand-{{ brand.id }}">
+                <th scope="row"><b>{{ forloop.counter }}</b></th>
+                <td><b>{{ brand.id }}</b></td>
+                <td>{{ brand.name }}</td>
+                <td>
+                  <input type="hidden" id="Url" data-url="{% url 'administrations:admin-delete-brand' %}" />
+                  <button type="button" class="btn btn-outline-danger" onclick="deleteBrand({{ brand.id }})">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+            </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+</div>
+{% endblock %}

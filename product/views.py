@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
 
-from .models import Product
+from .models import Product, Phone
 
 
 class ProductDetailView(View):
@@ -26,7 +26,7 @@ class ProductDetailView(View):
 
 class PhonesListView(View):
     def get(self, request, brand, cond):
-        products = Product.objects.all()
+        products = Phone.objects.all()
         context = {
             'products': products,
             'current_brand': brand,
